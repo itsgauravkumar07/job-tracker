@@ -1,55 +1,91 @@
-import { useState } from "react"
+import { useState } from "react";
+import { signupUser } from "../services/authService";
+import { useNavigate, Link } from "react-router-dom";
 
-export default function Signup(){
+export default function Signup() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [authError, setAuthError] = useState("");
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
-    function handleSignup(e){
-        e.preventDefault();
+  async function handleSignup(e) {
+    e.preventDefault();
 
-        const err = {};
+    const err = {};
+    if (!name.trim()) err.name = "Name required";
+    if (!email.trim()) err.email = "Email required";
+    if (!password.trim()) err.password = "Password required";
 
-         if(name.trim() === ""){
-            err.name = "Name required"
-        }
+    setErrors(err);
+    if (Object.keys(err).length > 0) return;
 
-        if(email.trim() === ""){
-            err.email = "Email required"
-        }
-        if(password.trim() === ""){
-            err.password = "Password required"
-        }
-        setErrors(err);
-
-        if(Object.keys(err).length > 0) return;
-
-        console.log("Name: ", name);
-        console.log("email: ", email);
-        console.log("password" , password);
-
-        setName("");
-        setEmail("");
-        setPassword("");
+    try {
+      setLoading(true);
+      setAuthError("");
+      await signupUser(email, password);
+      navigate("/dashboard");
+    } catch (error) {
+      setAuthError("Account creation failed");
+    } finally {
+      setLoading(false);
     }
+  }
 
-    return(
-        <div className="flex justify-center items-center h-screen">
-            <div className=" flex flex-col border border-gray-300 p-8 rounded-2xl w-2xs">
-                <h2 className="text-lg font-bold">Sign up with email</h2>
-                <form onSubmit={handleSignup} className="flex flex-col mt-5 gap-2.5">
-                    <input type="text" placeholder="name" value={name} onChange={e => setName(e.target.value)} className="bg-gray-200 rounded-md p-1 pl-4 hover:bg-gray-300"/>
-                    {errors.name && <p className="text-red-300">{errors.name}</p>}
-                    <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} className="bg-gray-200 rounded-md p-1 pl-4 hover:bg-gray-300"/>
-                    {errors.email && <p className="text-red-300">{errors.email}</p>}
-                    <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} className="bg-gray-200 rounded-md p-1 pl-4 hover:bg-gray-300"/>
-                     {errors.password && <p className="text-red-300">{errors.password}</p>}
-                    <button className="bg-black rounded-md p-1 text-white hover:bg-white hover:text-black hover:border hover:border-gray-300 hover:font-bold">Sign up</button>
-                </form>
-            </div>
-            
-        </div>
-    )
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <form
+        onSubmit={handleSignup}
+        className="border p-8 rounded-xl w-72 flex flex-col gap-3"
+      >
+        <h2 className="text-lg font-bold">Sign Up</h2>
+
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="border p-2 rounded"
+        />
+        {errors.name && <p className="text-red-500">{errors.name}</p>}
+
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="border p-2 rounded"
+        />
+        {errors.email && <p className="text-red-500">{errors.email}</p>}
+
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="border p-2 rounded"
+        />
+        {errors.password && <p className="text-red-500">{errors.password}</p>}
+
+        {authError && <p className="text-red-500">{authError}</p>}
+
+        <button
+          disabled={loading}
+          className="bg-black text-white p-2 rounded"
+        >
+          {loading ? "Creating account..." : "Sign Up"}
+        </button>
+
+        <p className="text-sm">
+          Already have an account?
+          <Link to="/" className="text-blue-600 ml-1">
+            Login
+          </Link>
+        </p>
+      </form>
+    </div>
+  );
 }
