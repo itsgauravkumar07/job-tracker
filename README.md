@@ -26,14 +26,3 @@ This project is built to demonstrate real-world frontend concepts such as authen
 - Tailwind CSS
 - Vite
 
----
-
-## 🧠 Application Flow
-
-1. User signs up or logs in using email and password
-2. Firebase verifies credentials and manages authentication
-3. Auth state is stored globally in the app
-4. Protected routes prevent unauthenticated access
-5. Logged-in users can access the dashboard
-
----
