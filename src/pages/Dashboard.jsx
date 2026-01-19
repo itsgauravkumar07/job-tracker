@@ -3,13 +3,7 @@ import { logoutUser } from "../services/authService";
 import AddJob from './AddJob';
 import { Link } from "react-router-dom";
 
-export default function Dashboard(){
-
-    const[jobApplication, setJobApplication] = useState([]);
-
-    function handleAddJobApplication(){
-
-    }
+export default function Dashboard({ jobApplication, handleDelete }){
 
     return(
         <div className="mx-5 my-5">
@@ -29,7 +23,26 @@ export default function Dashboard(){
                 </div>
             </nav>
 
-            <div><AddJob handleAddJobApplication={handleAddJobApplication}/></div>
+            <div>
+                <ul>
+                 {jobApplication.map((app, index )=> 
+                    <li 
+                        key={index}>
+                            {app.companyName} 
+                            {app.jobRole} 
+                            {app.appStatus} 
+                            {app.appDate} 
+                            {app.note} 
+                            {app.jobLink}
+                            <button 
+                                className="px-4 py-2 bg-red-500 text-white mx-2 rounded-2xl"
+                                onClick={() => handleDelete(index)}
+                                >Delete Job application</button>
+                    </li>
+                )}   
+                </ul>
+                
+            </div>
             
             
         </div>

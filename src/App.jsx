@@ -10,6 +10,13 @@ import ProtectedRoute from './routes/ProtectedRoute';
 
 function App() {
 
+  const[jobApplication, setJobApplication] = useState([]);
+
+  function handleDelete(index){
+    const updateJobApp = jobApplication.filter((_, i)=> i !== index);
+    setJobApplication(updateJobApp);
+  }
+
   return (
     <Routes>
       <Route path='/' element={<Login />} />
@@ -17,14 +24,14 @@ function App() {
 
       <Route path='/dashboard' element={
         <ProtectedRoute>
-          <Dashboard />
+          <Dashboard jobApplication={jobApplication} handleDelete={handleDelete}/>
         </ProtectedRoute>
         } 
       />
 
       <Route path='/addjob' element={
         <ProtectedRoute>
-          <AddJob />
+          <AddJob setJobApplication={setJobApplication}/>
         </ProtectedRoute>
         } 
       />
