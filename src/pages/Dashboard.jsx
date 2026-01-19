@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { logoutUser } from "../services/authService";
 import AddJob from './AddJob';
+import { Link } from "react-router-dom";
 
 export default function Dashboard(){
 
@@ -18,7 +19,12 @@ export default function Dashboard(){
                     <p className="text-md mt-2">Plan, prioritize your Job application</p>
                 </div>
                 <div>
-                    <button className="px-6 py-2 bg-green-400 mr-4 rounded-2xl hover:bg-green-300 hover:shadow font-medium">Add Job</button>
+                    <Link to="/addjob">
+                        <button 
+                            className="px-6 py-2 bg-green-400 mr-4 rounded-2xl hover:bg-green-300 hover:shadow font-medium"
+                        >Add Job</button>
+                    </Link>
+                    
                     <button onClick={async () => await logoutUser()} className="px-6 py-2 bg-green-400 mr-4 rounded-2xl hover:bg-green-300 hover:shadow font-medium">Logout</button>
                 </div>
             </nav>

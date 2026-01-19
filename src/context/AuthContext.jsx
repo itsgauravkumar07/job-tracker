@@ -4,7 +4,7 @@ import { auth } from "../firebase";
 
 const AuthContext = createContext(null);
 
-export function AuthProvider({ children }) {
+export function AuthProvider({ children }){
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -13,7 +13,7 @@ export function AuthProvider({ children }) {
       setUser(currentUser);
       setLoading(false);
     });
-
+    //this is cleanup and its run when component unmounts.
     return () => unsubscribe();
   }, []);
 
