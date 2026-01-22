@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, Link } from "react-router-dom";
 
 export default function AddJob( {setJobApplication }){
 
@@ -60,74 +60,89 @@ export default function AddJob( {setJobApplication }){
     }
 
     return(
-        <div className="flex flex-col justify-center">
-            <h1 className="text-center">Add Job Application</h1>
+        <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4 flex-col">
+            <h1 className="text-center text-2xl font-semibold mb-6 text-gray-800">Add Job Application</h1>
+            <div className="w-full max-w-md bg-white shadow-lg p-6 space-y-3 rounded-lg">
+                    <form 
+                        onSubmit={handleForm}
+                        className="space-y-4">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Company Name
+                        </label>
+                        <input 
+                            type="text" 
+                            placeholder="Google"
+                            value={companyName}
+                            onChange={e => setCompanyName(e.target.value)} 
+                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        {errors.companyName && 
+                            <p className="text-red-500 text-sm mt-1">{errors.companyName}</p>
+                        }
 
-            <div>
-                <form 
-                    onSubmit={handleForm}
-                    className="flex flex-col bg-gray-300 w-fit"
-                >
-                    <label>Company Name</label>
-                    <input 
-                        type="text" 
-                        placeholder="Enter Company name"
-                        value={companyName}
-                        onChange={e => setCompanyName(e.target.value)} 
-                    />
-                    {errors.companyName && <p className="text-red-500">{errors.companyName}</p>}
-
-                    <label>Job Role</label>
-                    <input 
-                        type="text" 
-                        placeholder="Enter Company name" 
-                        value={jobRole}
-                        onChange={e => setJobRole(e.target.value)}
-                    />
-                    {errors.jobRole && <p className="text-red-500">{errors.jobRole}</p>}
-
-
-                    <label>Application Status</label>
-                    <select 
-                        value={appStatus}
-                        onChange={e => setAppStatus(e.target.value)}    
-                    >
-                        <option value="none">none</option>
-                        <option value="Applied">Applied</option>
-                        <option value="Interview">Interview</option>
-                        <option value="Reject">Reject</option>
-                        <option value="Offer">Offer</option>
-                    </select>
-                    {errors.appStatus && <p className="text-red-500">{errors.appStatus}</p>}
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Job Role</label>
+                        <input 
+                            type="text" 
+                            placeholder="Frontend developer" 
+                            value={jobRole}
+                            onChange={e => setJobRole(e.target.value)}
+                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        {errors.jobRole && <p className="text-red-500 text-sm mt-1">{errors.jobRole}</p>}
 
 
-                    <label>Application Date</label>
-                    <input 
-                        type="Date" 
-                        value={appDate}
-                        onChange={e => setAppDate(e.target.value)}
-                    />
-                    {errors.appDate && <p className="text-red-500">{errors.appDate}</p>}
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Application Status</label>
+                        <select 
+                            value={appStatus}
+                            onChange={e => setAppStatus(e.target.value)}
+                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"   
+                        >
+                            <option value="none">none</option>
+                            <option value="Applied">Applied</option>
+                            <option value="Interview">Interview</option>
+                            <option value="Reject">Reject</option>
+                            <option value="Offer">Offer</option>
+                        </select>
+                        {errors.appStatus && <p className="text-red-500 text-sm mt-1">{errors.appStatus}</p>}
 
-                    <label>Notes</label>
-                    <input 
-                        type="text" 
-                        placeholder="Enter Company name" 
-                        value={note}
-                        onChange={e => setNote(e.target.value)}
-                    />
 
-                    <label>Job Link</label>
-                    <input 
-                        type="url" 
-                        placeholder="Enter Company name" 
-                        value={jobLink}
-                        onChange={e=>setJobLink(e.target.value)}
-                    />
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Application Date</label>
+                        <input 
+                            type="Date" 
+                            value={appDate}
+                            onChange={e => setAppDate(e.target.value)}
+                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        {errors.appDate && <p className="text-red-500 text-sm mt-1">{errors.appDate}</p>}
 
-                    <button>Add Job Application</button>
-                </form>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+                        <input 
+                            type="text" 
+                            placeholder="Enter Notes" 
+                            value={note}
+                            onChange={e => setNote(e.target.value)}
+                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Job Link</label>
+                        <input 
+                            type="url" 
+                            placeholder="https://www.google.com/" 
+                            value={jobLink}
+                            onChange={e=>setJobLink(e.target.value)}
+                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+
+                        <button className="py-2 rounded-md font-medium bg-blue-600 text-white w-full hover:bg-blue-700 transition duration-200">Add Job Application</button>
+                        
+                    </form>
+
+                    <button className="py-2 rounded-md font-medium bg-white text-gray-700 w-full border border-gray-300 hover:bg-gray-100 transition duration-200"
+                            onClick={() => navigate("/dashboard")}>
+                            Cancel
+                    </button>
             </div>
+            
         </div>
     )
 }
