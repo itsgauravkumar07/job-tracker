@@ -12,8 +12,8 @@ function App() {
 
   const[jobApplication, setJobApplication] = useState([]);
 
-  function handleDelete(index){
-    const updateJobApp = jobApplication.filter((_, i)=> i !== index);
+  function handleDelete(id){
+    const updateJobApp = jobApplication.filter(i => i.id !== id);
     setJobApplication(updateJobApp);
   }
 

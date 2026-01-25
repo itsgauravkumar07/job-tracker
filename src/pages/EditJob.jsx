@@ -94,6 +94,7 @@ export default function EditJob({ jobApplication, setJobApplication }) {
           Update Job
         </button>
       </form>
+
     </div>
   );
 }
