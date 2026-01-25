@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
@@ -24,21 +24,26 @@ function App() {
 
       <Route path='/dashboard' element={
         <ProtectedRoute>
-          <Dashboard jobApplication={jobApplication} handleDelete={handleDelete}/>
+          <Dashboard jobApplication={jobApplication} handleDelete={handleDelete} />
         </ProtectedRoute>
         } 
       />
 
       <Route path='/addjob' element={
         <ProtectedRoute>
-          <AddJob setJobApplication={setJobApplication}/>
+          <AddJob 
+            setJobApplication={setJobApplication} 
+          />
         </ProtectedRoute>
         } 
       />
 
-       <Route path='/editjob/:id' element={
+       <Route path='/edit/:id' element={
         <ProtectedRoute>
-          <EditJob />
+          <EditJob 
+            jobApplication={jobApplication}
+            setJobApplication={setJobApplication}
+            />
         </ProtectedRoute>
         } 
       />

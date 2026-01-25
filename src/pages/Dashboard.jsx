@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { logoutUser } from "../services/authService";
-import AddJob from './AddJob';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Dashboard({ jobApplication, handleDelete }){
+export default function Dashboard({ jobApplication, handleDelete, setJobToEdit }){
+
+    const navigate = useNavigate();
 
     return(
         <div className="mx-5 my-5">
@@ -87,6 +88,13 @@ export default function Dashboard({ jobApplication, handleDelete }){
 
                     {/* Actions */}
                     <div className="mt-4 flex justify-end">
+                        
+                        <button
+                        onClick={() => navigate(`/edit/${app.id}`)}
+                        className="px-4 py-2 mr-3 text-sm bg-yellow-400 text-white rounded-md hover:bg-blue-700 transition"
+                        >
+                        Edit
+                        </button>
                         <button
                         onClick={() => handleDelete(index)}
                         className="px-4 py-2 text-sm bg-red-500 text-white rounded-md hover:bg-red-600 transition"

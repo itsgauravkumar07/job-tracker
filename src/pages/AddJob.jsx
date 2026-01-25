@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate, useNavigate, Link } from "react-router-dom";
 
-export default function AddJob( {setJobApplication }){
+export default function AddJob( { setJobApplication }){
 
     const [companyName, setCompanyName] = useState('');
     const [jobRole, setJobRole] = useState('');
@@ -32,22 +32,22 @@ export default function AddJob( {setJobApplication }){
             newError.appDate = "Application date is required";
         }
 
+
         setErrors(newError);
 
         if(Object.keys(newError).length > 0) return;
 
-        setJobApplication(prev => [
-            ...prev, 
-            {
+       const updateJob = {
+                id: crypto.randomUUID(),
                 companyName, 
                 jobRole, 
                 appStatus, 
                 appDate, 
                 note, 
                 jobLink
-            }
-        ]);
+            };
 
+        setJobApplication(prev => [...prev, updateJob]);
         
         navigate("/dashboard");
         
@@ -61,7 +61,9 @@ export default function AddJob( {setJobApplication }){
 
     return(
         <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4 flex-col">
-            <h1 className="text-center text-2xl font-semibold mb-6 text-gray-800">Add Job Application</h1>
+            <h1 className="text-center text-2xl font-semibold mb-6 text-gray-800">
+                Add Job Application
+            </h1>
             <div className="w-full max-w-md bg-white shadow-lg p-6 space-y-3 rounded-lg">
                     <form 
                         onSubmit={handleForm}
@@ -133,7 +135,7 @@ export default function AddJob( {setJobApplication }){
                             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
 
-                        <button className="py-2 rounded-md font-medium bg-blue-600 text-white w-full hover:bg-blue-700 transition duration-200">Add Job Application</button>
+                        <button className="py-2 rounded-md font-medium bg-blue-600 text-white w-full hover:bg-blue-700 transition duration-200">Job Application</button>
                         
                     </form>
 
