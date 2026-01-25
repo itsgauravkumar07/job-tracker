@@ -93,6 +93,11 @@ export default function EditJob({ jobApplication, setJobApplication }) {
         <button className="w-full bg-blue-600 text-white py-2 rounded">
           Update Job
         </button>
+
+        <button className="py-2 rounded-md font-medium bg-white text-gray-700 w-full border border-gray-300 hover:bg-gray-100 transition duration-200"
+            onClick={() => navigate("/dashboard")}>
+            Cancel
+        </button>
       </form>
 
     </div>
