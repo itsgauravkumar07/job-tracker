@@ -1,8 +1,16 @@
+import { useState } from "react";
 import { logoutUser } from "../services/authService";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Dashboard({ jobApplication, handleDelete }) {
   const navigate = useNavigate();
+
+  const [statusFilter, setStatusFilter] = useState("All");
+
+ const filteredJobs = 
+    statusFilter === "All" 
+    ? jobApplication 
+    : jobApplication.filter(job => job.appStatus === statusFilter); 
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -35,10 +43,21 @@ export default function Dashboard({ jobApplication, handleDelete }) {
         </div>
       </nav>
 
+    <div className="pb-5 flex" >
+            <h1>Filter : </h1>
+            <select onChange={e => setStatusFilter(e.target.value)}>
+                <option value="All">All</option>
+                <option value="Applied">Applied</option>
+                <option value="Interview">Interview</option>
+                <option value="Reject">Reject</option>
+                <option value="Offer">Offer</option>
+            </select>
+    </div>
+
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Empty State */}
-        {jobApplication.length === 0 && (
+        {filteredJobs.length === 0 && (
           <div className="bg-white border rounded-lg p-10 text-center text-gray-500">
             <p className="text-lg font-medium">No job applications yet</p>
             <p className="text-sm mt-2">
@@ -49,7 +68,7 @@ export default function Dashboard({ jobApplication, handleDelete }) {
 
         {/* Job Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {jobApplication.map(app => (
+          {filteredJobs.map(app => (
             <div
               key={app.id}
               className="bg-white rounded-lg border shadow-sm p-5 flex flex-col justify-between"
