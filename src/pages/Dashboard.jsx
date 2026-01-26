@@ -15,7 +15,7 @@ export default function Dashboard({ jobApplication, handleDelete }) {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Navbar */}
-      <nav className="sticky top-0 z-50 bg-white border-b shadow-sm">
+      <nav className="sticky top-0 z-50 bg-gray-300 border-b shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div>
             <h1 className="text-xl sm:text-2xl font-semibold text-gray-800">
