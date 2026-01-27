@@ -40,33 +40,85 @@ export default function Login(){
   }
 
     return(
-        <div className="flex justify-center items-center h-screen">
-            <div className=" flex flex-col border border-gray-300 p-8 rounded-2xl w-2xs">
-                <h2 className="text-lg font-bold">Sign in with email</h2>
-                <form onSubmit={handleLogin} className="flex flex-col mt-5 gap-2.5">
+        <div className="min-h-screen bg-background flex items-center justify-center px-4">
+  <div className="w-full max-w-md bg-surface border border-border rounded-2xl p-8">
 
-                    <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} className="bg-gray-200 rounded-md p-1 pl-4 hover:bg-gray-300"/>
+    {/* Header */}
+    <div className="text-center mb-8">
+      <h2 className="text-2xl font-bold text-text">
+        Welcome back
+      </h2>
+      <p className="mt-2 text-sm text-muted">
+        Sign in to continue to JobTrack
+      </p>
+    </div>
 
-                    {errors.email && <p className="text-red-300">{errors.email}</p>}
+    {/* Form */}
+    <form onSubmit={handleLogin} className="space-y-5">
 
+      {/* Email */}
+      <div>
+        <label className="block text-sm font-medium text-muted mb-2">
+          Email address
+        </label>
+        <input
+          type="email"
+          placeholder="you@example.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full px-4 py-2.5 rounded-lg bg-background border border-border text-text placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary"
+        />
+        {/* {errors.email && (
+          <p className="mt-1 text-sm text-red-400">
+            {errors.email}
+          </p>
+        )} */}
+      </div>
 
-                    <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} className="bg-gray-200 rounded-md p-1 pl-4 hover:bg-gray-300"/>
+      {/* Password */}
+      <div>
+        <label className="block text-sm font-medium text-muted mb-2">
+          Password
+        </label>
+        <input
+          type="password"
+          placeholder="••••••••"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full px-4 py-2.5 rounded-lg bg-background border border-border text-text placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary"
+        />
+        {/* {errors.password && (
+          <p className="mt-1 text-sm text-red-400">
+            {errors.password}
+          </p>
+        )} */}
+      </div>
 
-                    {errors.password && <p className="text-red-300">{errors.password}</p>}
+      {/* Auth error */}
+      {authError && (
+        <p className="text-sm text-red-400">
+          {authError}
+        </p>
+      )}
 
-                    {authError && <p className="text-red-500">{authError}</p>}
+      {/* CTA */}
+      <button
+        disabled={loading}
+        className="w-full py-2.5 rounded-lg bg-primary text-black font-semibold hover:opacity-90 transition disabled:opacity-60"
+      >
+        {loading ? "Signing in..." : "Sign in"}
+      </button>
+    </form>
 
-                    <button disabled={loading} className="bg-black rounded-md p-1 text-white hover:bg-white hover:text-black hover:border hover:border-gray-300 hover:font-bold" >Log in</button>
+    {/* Footer */}
+    <p className="mt-6 text-center text-sm text-muted">
+      Don’t have an account?{" "}
+      <Link to="/signup" className="text-primary hover:underline">
+        Sign up
+      </Link>
+    </p>
+  </div>
+</div>
 
-                    <p className="text-sm">
-                        Don’t have an account?
-                        <Link to="/signup" className="text-blue-600 ml-1">
-                            Sign up
-                        </Link>
-                    </p>
-                </form>
-            </div>
-            
-        </div>
     )
 }
