@@ -5,6 +5,7 @@ import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import AddJob from './pages/AddJob';
 import EditJob from './pages/EditJob';
+import MarketingLanding from './pages/MarketingLanding';
 import './App.css'
 import ProtectedRoute from './routes/ProtectedRoute';
 
@@ -19,7 +20,8 @@ function App() {
 
   return (
     <Routes>
-      <Route path='/' element={<Login />} />
+      <Route path='/' element={<MarketingLanding />} />
+      <Route path='/login' element={<Login />} />
       <Route path='/signup' element={<Signup />} />
 
       <Route path='/dashboard' element={
