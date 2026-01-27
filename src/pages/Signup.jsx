@@ -36,56 +36,105 @@ export default function Signup() {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <form
-        onSubmit={handleSignup}
-        className="border p-8 rounded-xl w-72 flex flex-col gap-3"
-      >
-        <h2 className="text-lg font-bold">Sign Up</h2>
-
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="border p-2 rounded"
-        />
-        {errors.name && <p className="text-red-500">{errors.name}</p>}
-
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="border p-2 rounded"
-        />
-        {errors.email && <p className="text-red-500">{errors.email}</p>}
-
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="border p-2 rounded"
-        />
-        {errors.password && <p className="text-red-500">{errors.password}</p>}
-
-        {authError && <p className="text-red-500">{authError}</p>}
-
-        <button
-          disabled={loading}
-          className="bg-black text-white p-2 rounded"
-        >
-          {loading ? "Creating account..." : "Sign Up"}
-        </button>
-
-        <p className="text-sm">
-          Already have an account?
-          <Link to="/" className="text-blue-600 ml-1">
-            Login
-          </Link>
-        </p>
-      </form>
+    <div className="min-h-screen bg-background flex items-center justify-center px-4">
+  <form
+    onSubmit={handleSignup}
+    className="w-full max-w-md bg-surface border border-border rounded-2xl p-8 flex flex-col gap-5"
+  >
+    {/* Header */}
+    <div className="text-center mb-2">
+      <h2 className="text-2xl font-bold text-text">
+        Create your account
+      </h2>
+      <p className="mt-1 text-sm text-muted">
+        Start tracking your job applications
+      </p>
     </div>
+
+    {/* Name */}
+    <div>
+      <label className="block text-sm font-medium text-muted mb-2">
+        Full name
+      </label>
+      <input
+        type="text"
+        placeholder="John Doe"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        className="w-full px-4 py-2.5 rounded-lg bg-background border border-border text-text placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary"
+      />
+      {errors.name && (
+        <p className="mt-1 text-sm text-red-400">
+          {errors.name}
+        </p>
+      )}
+    </div>
+
+    {/* Email */}
+    <div>
+      <label className="block text-sm font-medium text-muted mb-2">
+        Email address
+      </label>
+      <input
+        type="email"
+        placeholder="you@example.com"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="w-full px-4 py-2.5 rounded-lg bg-background border border-border text-text placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary"
+      />
+      {errors.email && (
+        <p className="mt-1 text-sm text-red-400">
+          {errors.email}
+        </p>
+      )}
+    </div>
+
+    {/* Password */}
+    <div>
+      <label className="block text-sm font-medium text-muted mb-2">
+        Password
+      </label>
+      <input
+        type="password"
+        placeholder="••••••••"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        className="w-full px-4 py-2.5 rounded-lg bg-background border border-border text-text placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary"
+      />
+      {errors.password && (
+        <p className="mt-1 text-sm text-red-400">
+          {errors.password}
+        </p>
+      )}
+    </div>
+
+    {/* Auth error */}
+    {authError && (
+      <p className="text-sm text-red-400">
+        {authError}
+      </p>
+    )}
+
+    {/* CTA */}
+    <button
+      disabled={loading}
+      className="w-full py-2.5 rounded-lg bg-primary text-white font-semibold hover:opacity-90 transition disabled:opacity-60"
+    >
+      {loading ? "Creating account..." : "Create account"}
+    </button>
+
+    {/* Footer */}
+    <p className="text-center text-sm text-muted">
+      Already have an account?{" "}
+      <Link
+        to="/login"
+        className="text-primary hover:underline"
+      >
+        Sign in
+      </Link>
+    </p>
+  </form>
+</div>
+
   );
 }
